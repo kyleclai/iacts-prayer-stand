@@ -1,0 +1,250 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Courier New', monospace;
+    background-color: #000;
+    color: #fff;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+.navigation {
+    position: fixed;
+    top: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 30px;
+    opacity: 0;
+    transition: opacity 0.8s ease-in;
+    z-index: 100;
+    background-color: rgba(0, 0, 0, 0.9);
+    border: 1px solid #333;
+    border-radius: 6px;
+    padding: 10px 20px;
+}
+
+.navigation.show {
+    opacity: 1;
+}
+
+.nav-item {
+    color: #fff;
+    text-decoration: none;
+    font-size: 1rem;
+    letter-spacing: 0.04em;
+}
+
+.nav-item:hover {
+    color: #bbb;
+}
+
+.section {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 120px 28px 48px;
+}
+
+.hero-content {
+    max-width: 860px;
+    text-align: center;
+}
+
+.hero-title {
+    font-size: 3rem;
+    font-weight: 300;
+    letter-spacing: 0.1em;
+    margin-bottom: 20px;
+}
+
+.hero-summary {
+    color: #c9c9c9;
+    line-height: 1.8;
+    font-size: 1.1rem;
+    margin-bottom: 12px;
+}
+
+.hero-cta {
+    display: inline-block;
+    margin-top: 18px;
+    border: 1px solid #666;
+    border-radius: 8px;
+    color: #fff;
+    text-decoration: none;
+    padding: 10px 16px;
+}
+
+.hero-cta:hover {
+    border-color: #aaa;
+}
+
+.section-content {
+    width: 100%;
+    max-width: 980px;
+}
+
+.section-title {
+    font-size: 2.4rem;
+    font-weight: 300;
+    letter-spacing: 0.08em;
+    margin-bottom: 18px;
+    text-align: center;
+}
+
+.section-subtitle {
+    color: #aaa;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.prayer-resources a {
+    color: #d8d8d8;
+}
+
+.prayer-resources a:hover {
+    color: #fff;
+}
+
+.content-text {
+    max-width: 760px;
+    margin: 0 auto;
+    color: #ccc;
+    line-height: 1.8;
+    font-size: 1.1rem;
+}
+
+.content-text p {
+    margin-bottom: 12px;
+}
+
+.prayer-browser {
+    display: grid;
+    grid-template-columns: minmax(240px, 300px) 1fr;
+    gap: 24px;
+}
+
+.prayer-list {
+    border: 1px solid #333;
+    border-radius: 8px;
+    background: #0b0b0b;
+    padding: 12px;
+    max-height: 580px;
+    overflow-y: auto;
+}
+
+.prayer-list-item {
+    width: 100%;
+    text-align: left;
+    border: 1px solid transparent;
+    border-radius: 6px;
+    background: transparent;
+    color: #fff;
+    padding: 10px 12px;
+    margin-bottom: 8px;
+    cursor: pointer;
+}
+
+.prayer-list-item:hover,
+.prayer-list-item.active {
+    border-color: #666;
+    background: #141414;
+}
+
+.prayer-list-title {
+    display: block;
+    margin-bottom: 4px;
+}
+
+.prayer-list-tag {
+    display: inline-block;
+    color: #b7b7b7;
+    font-size: 0.8rem;
+}
+
+.prayer-viewer {
+    border: 1px solid #333;
+    border-radius: 8px;
+    background: #111;
+    padding: 20px;
+}
+
+.prayer-viewer-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 14px;
+}
+
+.prayer-viewer h3 {
+    font-size: 1.25rem;
+    font-weight: 300;
+}
+
+.prayer-body {
+    color: #cfcfcf;
+    line-height: 1.75;
+    font-size: 0.98rem;
+    margin-bottom: 16px;
+}
+
+.copy-button {
+    border: 1px solid #555;
+    background: #000;
+    color: #fff;
+    border-radius: 6px;
+    padding: 8px 12px;
+    font-family: inherit;
+    cursor: pointer;
+}
+
+.copy-button:hover {
+    border-color: #aaa;
+}
+
+.copy-button.copied {
+    border-color: #5ab17f;
+    color: #5ab17f;
+}
+
+.status {
+    color: #888;
+    text-align: center;
+}
+
+@media (max-width: 700px) {
+    .navigation {
+        gap: 16px;
+        padding: 8px 12px;
+        flex-wrap: wrap;
+        justify-content: center;
+        top: 16px;
+    }
+
+    .hero-title {
+        font-size: 2rem;
+    }
+
+    .section-title {
+        font-size: 1.8rem;
+    }
+
+    .prayer-browser {
+        grid-template-columns: 1fr;
+    }
+
+    .prayer-viewer-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
