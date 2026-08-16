@@ -2,6 +2,9 @@
 
 Use this template to write prayers in a consistent I.A.C.T.S. format.
 
+Related formation reference:
+- [Four Introductory Teachings Handout](/prayers/INTRODUCTORY-TEACHINGS.md)
+
 ## The I.A.C.T.S. Prayer Framework
 
 ### I — Invocation

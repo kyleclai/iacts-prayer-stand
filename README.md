@@ -33,3 +33,4 @@ This repository now includes a GitHub Pages-ready site:
    - `path` (to the markdown file)
 3. Commit and publish. The Prayer Library will automatically include it in the browser list.
 4. Use the [Contribution Template](/prayers/TEMPLATE.md) for I.A.C.T.S. formatting guidance.
+5. For additional teaching context, use [Four Introductory Teachings](/prayers/INTRODUCTORY-TEACHINGS.md).
