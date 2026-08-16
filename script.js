@@ -113,9 +113,8 @@ function renderSelectedPrayer(prayers, index) {
     copyButton.addEventListener("click", async () => {
         const textToCopy = `${prayer.title}\n\n${prayer.text}`;
         const copied = await copyText(textToCopy);
-        if (!copied) return;
-        copyButton.classList.add("copied");
-        copyButton.textContent = "Copied!";
+        copyButton.classList.toggle("copied", copied);
+        copyButton.textContent = copied ? "Copied!" : "Copy failed";
         setTimeout(() => {
             copyButton.classList.remove("copied");
             copyButton.textContent = "Copy prayer";
@@ -129,21 +128,43 @@ function setPrayerError(message) {
 }
 
 async function copyText(text) {
-    try {
-        await navigator.clipboard.writeText(text);
-        return true;
-    } catch {
-        const textarea = document.createElement("textarea");
-        textarea.value = text;
-        textarea.style.position = "fixed";
-        textarea.style.opacity = "0";
-        document.body.appendChild(textarea);
-        textarea.focus();
-        textarea.select();
-        const success = document.execCommand("copy");
-        document.body.removeChild(textarea);
-        return success;
+    if (navigator.clipboard && window.isSecureContext) {
+        try {
+            await navigator.clipboard.writeText(text);
+            return true;
+        } catch {
+            // Fall through to legacy copy support.
+        }
     }
+
+    const textarea = document.createElement("textarea");
+    textarea.value = text;
+    textarea.setAttribute("readonly", "");
+    textarea.style.position = "fixed";
+    textarea.style.left = "-9999px";
+    document.body.appendChild(textarea);
+
+    const selection = document.getSelection();
+    const selectedRange = selection && selection.rangeCount > 0 ? selection.getRangeAt(0) : null;
+
+    textarea.select();
+    textarea.setSelectionRange(0, textarea.value.length);
+
+    let copied = false;
+    try {
+        copied = document.execCommand("copy");
+    } catch {
+        copied = false;
+    }
+
+    document.body.removeChild(textarea);
+
+    if (selectedRange && selection) {
+        selection.removeAllRanges();
+        selection.addRange(selectedRange);
+    }
+
+    return copied;
 }
 
 function escapeHtml(value) {
