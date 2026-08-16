@@ -9,14 +9,17 @@
 <body>
     <nav class="navigation" id="navigation">
         <a href="#home" class="nav-item">Home</a>
-        <a href="#iacts" class="nav-item">IACTS</a>
+        <a href="#iacts" class="nav-item">Why IACTS</a>
         <a href="#prayers" class="nav-item">Prayers</a>
         <a href="#about" class="nav-item">About</a>
     </nav>
 
     <section id="home" class="section">
-        <div class="typing-container">
-            <h1 class="typing-text" id="typingText"></h1><span class="cursor"></span>
+        <div class="hero-content">
+            <h1 class="hero-title">IACTS Prayers</h1>
+            <p class="hero-summary">A simple prayer stand for Invitation, Adoration, Contrition, Thanksgiving, and Supplication.</p>
+            <p class="hero-summary">This matters because a structured rhythm helps us pray with intention, honesty, gratitude, and trust in God each day.</p>
+            <a href="#prayers" class="hero-cta">Browse current prayers</a>
         </div>
     </section>
 
@@ -36,8 +39,11 @@
     <section id="prayers" class="section">
         <div class="section-content">
             <h2 class="section-title">Prayer Library</h2>
-            <p class="section-subtitle">Read and copy each prayer for personal use.</p>
-            <div id="prayerCards" class="prayer-grid"></div>
+            <p class="section-subtitle">Select a prayer to read and copy.</p>
+            <div class="prayer-browser">
+                <aside id="prayerList" class="prayer-list" aria-label="Prayer list"></aside>
+                <article id="prayerViewer" class="prayer-viewer" aria-live="polite"></article>
+            </div>
         </div>
     </section>
 

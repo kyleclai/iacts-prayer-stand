@@ -1,0 +1,14 @@
+{
+  "prayers": [
+    {
+      "title": "Contrition Prayer",
+      "category": "Contrition",
+      "path": "prayers/contrition-prayer.md"
+    },
+    {
+      "title": "Prayer of Supplication",
+      "category": "Supplication",
+      "path": "prayers/supplication-prayer.md"
+    }
+  ]
+}

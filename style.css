@@ -55,30 +55,37 @@ body {
     padding: 120px 28px 48px;
 }
 
-.typing-container {
+.hero-content {
+    max-width: 860px;
     text-align: center;
 }
 
-.typing-text {
-    font-size: 2.2rem;
-    letter-spacing: 0.08em;
+.hero-title {
+    font-size: 3rem;
     font-weight: 300;
-    display: inline;
+    letter-spacing: 0.1em;
+    margin-bottom: 20px;
 }
 
-.cursor {
-    display: inline;
-    font-size: 2.2rem;
-    animation: blink 1s infinite;
+.hero-summary {
+    color: #c9c9c9;
+    line-height: 1.8;
+    font-size: 1.1rem;
+    margin-bottom: 12px;
 }
 
-.cursor::after {
-    content: '|';
+.hero-cta {
+    display: inline-block;
+    margin-top: 18px;
+    border: 1px solid #666;
+    border-radius: 8px;
+    color: #fff;
+    text-decoration: none;
+    padding: 10px 16px;
 }
 
-@keyframes blink {
-    0%, 50% { opacity: 1; }
-    51%, 100% { opacity: 0; }
+.hero-cta:hover {
+    border-color: #aaa;
 }
 
 .section-content {
@@ -112,22 +119,67 @@ body {
     margin-bottom: 12px;
 }
 
-.prayer-grid {
+.prayer-browser {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    grid-template-columns: minmax(240px, 300px) 1fr;
     gap: 24px;
 }
 
-.prayer-card {
+.prayer-list {
+    border: 1px solid #333;
+    border-radius: 8px;
+    background: #0b0b0b;
+    padding: 12px;
+    max-height: 580px;
+    overflow-y: auto;
+}
+
+.prayer-list-item {
+    width: 100%;
+    text-align: left;
+    border: 1px solid transparent;
+    border-radius: 6px;
+    background: transparent;
+    color: #fff;
+    padding: 10px 12px;
+    margin-bottom: 8px;
+    cursor: pointer;
+}
+
+.prayer-list-item:hover,
+.prayer-list-item.active {
+    border-color: #666;
+    background: #141414;
+}
+
+.prayer-list-title {
+    display: block;
+    margin-bottom: 4px;
+}
+
+.prayer-list-tag {
+    display: inline-block;
+    color: #b7b7b7;
+    font-size: 0.8rem;
+}
+
+.prayer-viewer {
     border: 1px solid #333;
     border-radius: 8px;
     background: #111;
     padding: 20px;
 }
 
-.prayer-card h3 {
-    font-size: 1.25rem;
+.prayer-viewer-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
     margin-bottom: 14px;
+}
+
+.prayer-viewer h3 {
+    font-size: 1.25rem;
     font-weight: 300;
 }
 
@@ -171,12 +223,20 @@ body {
         top: 16px;
     }
 
-    .typing-text,
-    .cursor {
-        font-size: 1.5rem;
+    .hero-title {
+        font-size: 2rem;
     }
 
     .section-title {
         font-size: 1.8rem;
+    }
+
+    .prayer-browser {
+        grid-template-columns: 1fr;
+    }
+
+    .prayer-viewer-header {
+        flex-direction: column;
+        align-items: flex-start;
     }
 }

@@ -1,48 +1,14 @@
-const TEXT_TO_TYPE = "Welcome to the IACTS Prayer Stand";
-const TYPING_SPEED = 70;
-const TYPING_DELAY = 350;
-
-const PRAYER_FILES = [
-    { title: "Contrition Prayer", path: "prayers/contrition-prayer.md" },
-    { title: "Prayer of Supplication", path: "prayers/supplication-prayer.md" }
-];
+const PRAYER_MANIFEST_PATH = "prayers/index.json";
 
 const navigation = document.getElementById("navigation");
-const typingText = document.getElementById("typingText");
-const prayerCards = document.getElementById("prayerCards");
+const prayerList = document.getElementById("prayerList");
+const prayerViewer = document.getElementById("prayerViewer");
 
-window.addEventListener("DOMContentLoaded", () => {
-    window.scrollTo(0, 0);
-    document.documentElement.scrollTop = 0;
-    document.body.scrollTop = 0;
-    typingText.textContent = "";
-    navigation.classList.remove("show");
-    document.body.style.overflowY = "hidden";
+window.addEventListener("DOMContentLoaded", async () => {
+    navigation.classList.add("show");
     addNavigationHandlers();
+    await renderPrayerBrowser();
 });
-
-window.addEventListener("load", async () => {
-    setTimeout(startTypingAnimation, TYPING_DELAY);
-    await renderPrayers();
-});
-
-function startTypingAnimation() {
-    let i = 0;
-
-    function typeWriter() {
-        if (i < TEXT_TO_TYPE.length) {
-            typingText.textContent += TEXT_TO_TYPE.charAt(i);
-            i += 1;
-            setTimeout(typeWriter, TYPING_SPEED);
-            return;
-        }
-
-        navigation.classList.add("show");
-        document.body.style.overflowY = "auto";
-    }
-
-    typeWriter();
-}
 
 function addNavigationHandlers() {
     const navItems = document.querySelectorAll(".nav-item");
@@ -59,14 +25,35 @@ function addNavigationHandlers() {
     });
 }
 
-async function renderPrayers() {
+async function renderPrayerBrowser() {
     try {
-        const prayers = await Promise.all(PRAYER_FILES.map(loadPrayerFile));
-        prayerCards.innerHTML = prayers.map(createPrayerCard).join("");
-        attachCopyHandlers(prayers);
-    } catch (error) {
-        prayerCards.innerHTML = `<p class="status">Unable to load prayers right now.</p>`;
+        const manifest = await loadPrayerManifest();
+        const prayers = await Promise.all(manifest.prayers.map(loadPrayerFile));
+
+        if (!prayers.length) {
+            setPrayerError("No prayers are listed yet.");
+            return;
+        }
+
+        renderPrayerList(prayers);
+        renderSelectedPrayer(prayers, 0);
+    } catch {
+        setPrayerError("Unable to load prayers right now.");
     }
+}
+
+async function loadPrayerManifest() {
+    const response = await fetch(PRAYER_MANIFEST_PATH);
+    if (!response.ok) {
+        throw new Error(`Failed to load ${PRAYER_MANIFEST_PATH}`);
+    }
+
+    const manifest = await response.json();
+    if (!manifest?.prayers || !Array.isArray(manifest.prayers)) {
+        throw new Error("Invalid prayer manifest format.");
+    }
+
+    return manifest;
 }
 
 async function loadPrayerFile(prayer) {
@@ -82,39 +69,63 @@ async function loadPrayerFile(prayer) {
     return { ...prayer, text };
 }
 
-function createPrayerCard(prayer, index) {
+function renderPrayerList(prayers) {
+    prayerList.innerHTML = prayers
+        .map((prayer, index) => {
+            return `
+                <button class="prayer-list-item" data-prayer-index="${index}" type="button">
+                    <span class="prayer-list-title">${escapeHtml(prayer.title)}</span>
+                    ${prayer.category ? `<span class="prayer-list-tag">${escapeHtml(prayer.category)}</span>` : ""}
+                </button>
+            `;
+        })
+        .join("");
+
+    const buttons = prayerList.querySelectorAll(".prayer-list-item");
+    buttons.forEach((button) => {
+        button.addEventListener("click", () => {
+            const index = Number(button.dataset.prayerIndex);
+            renderSelectedPrayer(prayers, index);
+        });
+    });
+}
+
+function renderSelectedPrayer(prayers, index) {
+    const prayer = prayers[index];
     const paragraphs = prayer.text
         .split(/\n\s*\n/)
         .map((block) => `<p>${escapeHtml(block).replace(/\n/g, "<br>")}</p>`)
         .join("");
 
-    return `
-        <article class="prayer-card">
+    prayerViewer.innerHTML = `
+        <header class="prayer-viewer-header">
             <h3>${escapeHtml(prayer.title)}</h3>
-            <div class="prayer-body">${paragraphs}</div>
-            <button class="copy-button" data-prayer-index="${index}" type="button">Copy prayer</button>
-        </article>
+            <button class="copy-button" type="button">Copy prayer</button>
+        </header>
+        <div class="prayer-body">${paragraphs}</div>
     `;
+
+    prayerList.querySelectorAll(".prayer-list-item").forEach((button, buttonIndex) => {
+        button.classList.toggle("active", buttonIndex === index);
+    });
+
+    const copyButton = prayerViewer.querySelector(".copy-button");
+    copyButton.addEventListener("click", async () => {
+        const textToCopy = `${prayer.title}\n\n${prayer.text}`;
+        const copied = await copyText(textToCopy);
+        if (!copied) return;
+        copyButton.classList.add("copied");
+        copyButton.textContent = "Copied!";
+        setTimeout(() => {
+            copyButton.classList.remove("copied");
+            copyButton.textContent = "Copy prayer";
+        }, 1400);
+    });
 }
 
-function attachCopyHandlers(prayers) {
-    document.querySelectorAll(".copy-button").forEach((button) => {
-        button.addEventListener("click", async () => {
-            const index = Number(button.dataset.prayerIndex);
-            const prayer = prayers[index];
-            const textToCopy = `${prayer.title}\n\n${prayer.text}`;
-
-            const copied = await copyText(textToCopy);
-            if (!copied) return;
-
-            button.classList.add("copied");
-            button.textContent = "Copied!";
-            setTimeout(() => {
-                button.classList.remove("copied");
-                button.textContent = "Copy prayer";
-            }, 1400);
-        });
-    });
+function setPrayerError(message) {
+    prayerList.innerHTML = "";
+    prayerViewer.innerHTML = `<p class="status">${escapeHtml(message)}</p>`;
 }
 
 async function copyText(text) {

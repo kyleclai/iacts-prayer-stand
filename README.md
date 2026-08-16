@@ -10,15 +10,25 @@ This repository is initialized for an **IACTS Catholic prayer stand** focused on
 - **T**: Thanksgiving
 - **S**: Supplication
 
-## Sample Prayers
+## Current Prayers
 
 - [Contrition Prayer](/prayers/contrition-prayer.md)
 - [Prayer of Supplication](/prayers/supplication-prayer.md)
 
-## Site
+## Site Structure
 
 This repository now includes a GitHub Pages-ready site:
 
 - `index.html`
 - `style.css`
 - `script.js`
+- `prayers/index.json` (manifest for prayer cards/content)
+
+## Add a New Prayer (Modular Flow)
+
+1. Add a markdown file under `prayers/` (for example `prayers/new-prayer.md`).
+2. Add an entry to `prayers/index.json` with:
+   - `title`
+   - `category`
+   - `path` (to the markdown file)
+3. Commit and publish. The Prayer Library will automatically include it in the browser list.
