@@ -1,0 +1,182 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Courier New', monospace;
+    background-color: #000;
+    color: #fff;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+.navigation {
+    position: fixed;
+    top: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 30px;
+    opacity: 0;
+    transition: opacity 0.8s ease-in;
+    z-index: 100;
+    background-color: rgba(0, 0, 0, 0.9);
+    border: 1px solid #333;
+    border-radius: 6px;
+    padding: 10px 20px;
+}
+
+.navigation.show {
+    opacity: 1;
+}
+
+.nav-item {
+    color: #fff;
+    text-decoration: none;
+    font-size: 1rem;
+    letter-spacing: 0.04em;
+}
+
+.nav-item:hover {
+    color: #bbb;
+}
+
+.section {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 120px 28px 48px;
+}
+
+.typing-container {
+    text-align: center;
+}
+
+.typing-text {
+    font-size: 2.2rem;
+    letter-spacing: 0.08em;
+    font-weight: 300;
+    display: inline;
+}
+
+.cursor {
+    display: inline;
+    font-size: 2.2rem;
+    animation: blink 1s infinite;
+}
+
+.cursor::after {
+    content: '|';
+}
+
+@keyframes blink {
+    0%, 50% { opacity: 1; }
+    51%, 100% { opacity: 0; }
+}
+
+.section-content {
+    width: 100%;
+    max-width: 980px;
+}
+
+.section-title {
+    font-size: 2.4rem;
+    font-weight: 300;
+    letter-spacing: 0.08em;
+    margin-bottom: 18px;
+    text-align: center;
+}
+
+.section-subtitle {
+    color: #aaa;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.content-text {
+    max-width: 760px;
+    margin: 0 auto;
+    color: #ccc;
+    line-height: 1.8;
+    font-size: 1.1rem;
+}
+
+.content-text p {
+    margin-bottom: 12px;
+}
+
+.prayer-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 24px;
+}
+
+.prayer-card {
+    border: 1px solid #333;
+    border-radius: 8px;
+    background: #111;
+    padding: 20px;
+}
+
+.prayer-card h3 {
+    font-size: 1.25rem;
+    margin-bottom: 14px;
+    font-weight: 300;
+}
+
+.prayer-body {
+    color: #cfcfcf;
+    line-height: 1.75;
+    font-size: 0.98rem;
+    margin-bottom: 16px;
+}
+
+.copy-button {
+    border: 1px solid #555;
+    background: #000;
+    color: #fff;
+    border-radius: 6px;
+    padding: 8px 12px;
+    font-family: inherit;
+    cursor: pointer;
+}
+
+.copy-button:hover {
+    border-color: #aaa;
+}
+
+.copy-button.copied {
+    border-color: #5ab17f;
+    color: #5ab17f;
+}
+
+.status {
+    color: #888;
+    text-align: center;
+}
+
+@media (max-width: 700px) {
+    .navigation {
+        gap: 16px;
+        padding: 8px 12px;
+        flex-wrap: wrap;
+        justify-content: center;
+        top: 16px;
+    }
+
+    .typing-text,
+    .cursor {
+        font-size: 1.5rem;
+    }
+
+    .section-title {
+        font-size: 1.8rem;
+    }
+}

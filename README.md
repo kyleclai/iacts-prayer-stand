@@ -14,3 +14,11 @@ This repository is initialized for an **IACTS Catholic prayer stand** focused on
 
 - [Contrition Prayer](/prayers/contrition-prayer.md)
 - [Prayer of Supplication](/prayers/supplication-prayer.md)
+
+## Site
+
+This repository now includes a GitHub Pages-ready site:
+
+- `index.html`
+- `style.css`
+- `script.js`

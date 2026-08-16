@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IACTS Prayer Stand</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav class="navigation" id="navigation">
+        <a href="#home" class="nav-item">Home</a>
+        <a href="#iacts" class="nav-item">IACTS</a>
+        <a href="#prayers" class="nav-item">Prayers</a>
+        <a href="#about" class="nav-item">About</a>
+    </nav>
+
+    <section id="home" class="section">
+        <div class="typing-container">
+            <h1 class="typing-text" id="typingText"></h1><span class="cursor"></span>
+        </div>
+    </section>
+
+    <section id="iacts" class="section">
+        <div class="section-content">
+            <h2 class="section-title">What IACTS Means</h2>
+            <div class="content-text">
+                <p><strong>I</strong>: Invitation</p>
+                <p><strong>A</strong>: Adoration</p>
+                <p><strong>C</strong>: Contrition (Confession)</p>
+                <p><strong>T</strong>: Thanksgiving</p>
+                <p><strong>S</strong>: Supplication</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="prayers" class="section">
+        <div class="section-content">
+            <h2 class="section-title">Prayer Library</h2>
+            <p class="section-subtitle">Read and copy each prayer for personal use.</p>
+            <div id="prayerCards" class="prayer-grid"></div>
+        </div>
+    </section>
+
+    <section id="about" class="section">
+        <div class="section-content">
+            <h2 class="section-title">About This Site</h2>
+            <div class="content-text">
+                <p>This GitHub Pages site is a simple IACTS Catholic prayer stand.</p>
+                <p>New prayers can be added under the <code>prayers/</code> folder and surfaced here.</p>
+            </div>
+        </div>
+    </section>
+
+    <script src="script.js"></script>
+</body>
+</html>
